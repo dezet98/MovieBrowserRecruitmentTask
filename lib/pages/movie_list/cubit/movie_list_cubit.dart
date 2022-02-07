@@ -20,14 +20,18 @@ class MovieListCubit extends Cubit<MovieListState> {
     await _load(query, page: 1);
   }
 
+  Future<void> clear() async {
+    movies.clear();
+    emit(MovieListState.initial(""));
+  }
+
   Future<void> loadMore() async {
     await _load(state.query, page: movies.entries.last.key + 1);
   }
 
   Future<void> _load(String query, {required page}) async {
     if (query.isEmpty) {
-      emit(MovieListState.initial(""));
-      return;
+      return await clear();
     }
 
     final response = await _apiService.searchMovies(query, page);

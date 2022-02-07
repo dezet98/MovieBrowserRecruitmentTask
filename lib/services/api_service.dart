@@ -27,6 +27,7 @@ class ApiService {
       final parameters = {
         'query': query,
         'page': page.toString(),
+        // 'language': 'pl',
       };
 
       final encodedParameters = parameters.entries
