@@ -24,7 +24,7 @@ class ErrorComponent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              exception.text(),
+              exception.text(context),
               textAlign: TextAlign.center,
             ),
             if (onRetry != null) ...[

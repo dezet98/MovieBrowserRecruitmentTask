@@ -1,0 +1,15 @@
+{
+    "movieListTitle": "Movie Browser",
+    "movieListInitial": "To find some movies use search",
+    "noResults": "No results",
+    "yes": "Yes!",
+    "no": "No!",
+    "shouldWatchToday": "Should I watch it today?",
+    "budget": "Budget",
+    "revenue": "Revenue",
+    "dolarPrefix": "${amount}",
+    "search": "Search...",
+    "buttonsTitle": "2-state buttons",
+    "errorOccur": "Error occur"
+
+}

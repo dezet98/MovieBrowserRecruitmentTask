@@ -16,6 +16,12 @@ class ApiService {
 
   ApiService._internal();
 
+  String _language = "en";
+
+  void setLanguage(String code) {
+    _language = code;
+  }
+
   final _apiClient = InterceptedClient.build(interceptors: [
     LoggingInterceptor(),
     MovieApiInterceptor(),
@@ -27,7 +33,7 @@ class ApiService {
       final parameters = {
         'query': query,
         'page': page.toString(),
-        // 'language': 'pl',
+        'language': _language,
       };
 
       final encodedParameters = parameters.entries
@@ -46,8 +52,14 @@ class ApiService {
 
   Future<Either<Movie, AppException>> getMovieDetails(int movieId) async {
     try {
-      final response =
-          await _apiClient.get(Uri.parse('$baseUrl/movie/$movieId?'));
+      final parameters = {'language': _language};
+
+      final encodedParameters = parameters.entries
+          .map((entry) => '${_encode(entry.key)}=${_encode(entry.value)}')
+          .join('&');
+
+      final response = await _apiClient
+          .get(Uri.parse('$baseUrl/movie/$movieId?$encodedParameters'));
       final json = jsonDecode(response.body);
 
       return left(Movie.fromJson(json));

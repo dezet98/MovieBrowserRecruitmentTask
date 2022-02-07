@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
+import 'package:flutter_recruitment_task/utils/extensions.dart';
 
 class MovieDetails extends StatelessWidget {
   final Movie movie;
@@ -7,7 +8,7 @@ class MovieDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final movieDetails = _movieDetails(movie);
+    final movieDetails = _movieDetails(context, movie);
 
     return ListView.separated(
       separatorBuilder: (context, index) => Container(
@@ -35,15 +36,20 @@ class MovieDetails extends StatelessWidget {
     );
   }
 
-  static List<_MovieDetail> _movieDetails(Movie movie) {
+  static List<_MovieDetail> _movieDetails(BuildContext context, Movie movie) {
     return [
       if (movie.budget != null)
-        _MovieDetail(title: 'Budget', content: '\$${movie.budget}'),
+        _MovieDetail(
+            title: context.strings.budget,
+            content: context.strings.dolarPrefix(movie.budget.toString())),
       if (movie.revenue != null)
-        _MovieDetail(title: 'Revenue', content: '\$${movie.revenue}'),
+        _MovieDetail(
+            title: context.strings.revenue,
+            content: context.strings.dolarPrefix(movie.revenue.toString())),
       _MovieDetail(
-          title: 'Should I watch it today?',
-          content: movie.shouldWatch() ? 'Yes!' : "No!"),
+          title: context.strings.shouldWatchToday,
+          content:
+              movie.shouldWatch() ? context.strings.yes : context.strings.no),
     ];
   }
 }

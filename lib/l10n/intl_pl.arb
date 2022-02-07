@@ -1,0 +1,14 @@
+{
+    "movieListTitle": "Wyszukiwarka filmów",
+    "movieListInitial": "Aby znaleźć filmy, użyj wyszukiwarki",
+    "noResults": "Brak rezultatów",
+    "yes": "Tak!",
+    "no": "Nie!",
+    "shouldWatchToday": "Czy powinienem to dzisiaj obejrzeć?",
+    "budget": "Budżet",
+    "revenue": "Przychód",
+    "dolarPrefix": "${amount}",
+    "search": "Szukaj...",
+    "buttonsTitle": "2-stanowe przyciski",
+    "errorOccur": "Wystąpił błąd"
+}

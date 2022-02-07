@@ -4,24 +4,44 @@ import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/movie_details_page.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/cubit/movie_list_cubit.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/widgets/movie_card.dart';
+import 'package:flutter_recruitment_task/services/api_service.dart';
 import 'package:flutter_recruitment_task/shared/router.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-class MovieListView extends StatelessWidget {
+class MovieListView extends StatefulWidget {
   final List<Movie> movies;
   final bool canLoadMore;
-  final refreshController = RefreshController();
 
   MovieListView({required this.movies, required this.canLoadMore, Key? key})
       : super(key: key);
 
   @override
+  State<MovieListView> createState() => _MovieListViewState();
+}
+
+class _MovieListViewState extends State<MovieListView> {
+  final refreshController = RefreshController();
+
+  @override
+  void didChangeDependencies() {
+    Locale myLocale = Localizations.localeOf(context);
+    ApiService().setLanguage(myLocale.languageCode);
+    print('my locale ${myLocale}');
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SmartRefresher(
       controller: refreshController,
-      enablePullUp: canLoadMore,
+      enablePullUp: true,
       enablePullDown: false,
       onLoading: () async {
+        if (!widget.canLoadMore) {
+          refreshController.loadNoData();
+          return;
+        }
+
         await context.read<MovieListCubit>().loadMore();
         refreshController.loadComplete();
       },
@@ -32,7 +52,7 @@ class MovieListView extends StatelessWidget {
         ),
         physics: BouncingScrollPhysics(),
         itemBuilder: (context, index) {
-          final movie = movies[index];
+          final movie = widget.movies[index];
           final heroTag = "movieTitle${movie.id}";
 
           return MovieCard(
@@ -48,7 +68,7 @@ class MovieListView extends StatelessWidget {
             ),
           );
         },
-        itemCount: movies.length,
+        itemCount: widget.movies.length,
       ),
     );
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/cubit/movie_list_cubit.dart';
+import 'package:flutter_recruitment_task/utils/extensions.dart';
 import 'package:provider/provider.dart';
 
 class SearchBox extends StatefulWidget {
@@ -42,7 +43,7 @@ class _SearchBoxState extends State<SearchBox> {
                     ),
                   ),
             border: InputBorder.none,
-            hintText: 'Search...',
+            hintText: context.strings.search,
           ),
           onChanged: (String query) {
             context.read<MovieListCubit>().loadMovies(query);

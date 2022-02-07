@@ -8,11 +8,10 @@ import 'package:flutter_recruitment_task/pages/movie_list/widgets/search_box.dar
 import 'package:flutter_recruitment_task/services/api_service.dart';
 import 'package:flutter_recruitment_task/shared/router.dart';
 import 'package:flutter_recruitment_task/utils/dimensions.dart';
+import 'package:flutter_recruitment_task/utils/extensions.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MovieListPage extends StatelessWidget {
-  final apiService = ApiService();
-
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
@@ -24,7 +23,7 @@ class MovieListPage extends StatelessWidget {
               },
             ),
           ],
-          title: Text('Movie Browser'),
+          title: Text(context.strings.movieListTitle),
         ),
         body: BlocProvider<MovieListCubit>(
           create: (context) => MovieListCubit(ApiService()),
@@ -57,20 +56,20 @@ class _MovieList extends StatelessWidget {
             movies: successState.movies,
             canLoadMore: successState.canLoadMore,
           ),
-          empty: _empty,
-          initial: _initial,
+          empty: (_) => _empty(context),
+          initial: (_) => _initial(context),
         ),
       );
 
-  Widget _empty(_) => Container(
+  Widget _empty(BuildContext context) => Container(
         padding: EdgeInsets.all(Dimensions.PADDING_M),
         alignment: Alignment.center,
-        child: Text("No results"),
+        child: Text(context.strings.noResults),
       );
 
-  Widget _initial(_) => Container(
+  Widget _initial(BuildContext context) => Container(
         padding: EdgeInsets.all(Dimensions.PADDING_M),
         alignment: Alignment.center,
-        child: Text("To find some movies use search"),
+        child: Text(context.strings.movieListInitial),
       );
 }
