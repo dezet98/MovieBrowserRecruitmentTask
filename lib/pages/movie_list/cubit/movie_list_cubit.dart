@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
+import 'package:flutter_recruitment_task/models/movie_list.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
 import 'package:flutter_recruitment_task/utils/exceptions.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -20,7 +21,8 @@ class MovieListCubit extends Cubit<MovieListState> {
       (movies) {
         emit(movies.isEmpty
             ? MovieListState.empty(query)
-            : MovieListState.loadSuccess(query, movies));
+            : MovieListState.loadSuccess(
+                query, movies..sort(MovieList.compareVoteAverage)));
       },
       (error) => emit(MovieListState.loadFailure(query, error)),
     );
