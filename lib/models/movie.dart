@@ -1,9 +1,10 @@
+import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'movie.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Movie {
+class Movie extends Equatable {
   final String title;
   final double voteAverage;
   final int id;
@@ -31,4 +32,7 @@ class Movie {
 
     return false;
   }
+
+  @override
+  List<Object?> get props => [title, voteAverage, id, budget, revenue];
 }

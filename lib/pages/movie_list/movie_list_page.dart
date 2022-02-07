@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_recruitment_task/components/error_component.dart';
 import 'package:flutter_recruitment_task/components/loading_component.dart';
-import 'package:flutter_recruitment_task/pages/movie_details/movie_details_page.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/cubit/movie_list_cubit.dart';
-import 'package:flutter_recruitment_task/pages/movie_list/widgets/movie_card.dart';
+import 'package:flutter_recruitment_task/pages/movie_list/widgets/movie_list.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/widgets/search_box.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
 import 'package:flutter_recruitment_task/shared/router.dart';
 import 'package:flutter_recruitment_task/utils/dimensions.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MovieListPage extends StatelessWidget {
   final apiService = ApiService();
@@ -39,7 +39,9 @@ class MovieListPage extends StatelessWidget {
 }
 
 class _MovieList extends StatelessWidget {
-  const _MovieList({Key? key}) : super(key: key);
+  final refreshController = RefreshController();
+
+  _MovieList({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) =>
@@ -51,34 +53,13 @@ class _MovieList extends StatelessWidget {
             onRetry: () =>
                 context.read<MovieListCubit>().loadMovies(state.query),
           ),
-          loadSuccess: _loadSuccess,
+          loadSuccess: (successState) => MovieListView(
+            movies: successState.movies,
+            canLoadMore: successState.canLoadMore,
+          ),
           empty: _empty,
           initial: _initial,
         ),
-      );
-
-  Widget _loadSuccess(MovieListSuccess state) => ListView.separated(
-        separatorBuilder: (context, index) => Container(
-          height: 1.0,
-          color: Colors.grey.shade300,
-        ),
-        itemBuilder: (context, index) {
-          final movie = state.movies[index];
-          final heroTag = "movieTitle${movie.id}";
-          return MovieCard(
-            heroTextTag: heroTag,
-            title: movie.title,
-            rating: '${(movie.voteAverage * 10).toInt()}%',
-            onTap: () => context.router.pushNamed(
-              AppRoutes.movieDetails,
-              arguments: MovieDetailsPageArguments(
-                movie,
-                heroTag,
-              ),
-            ),
-          );
-        },
-        itemCount: state.movies.length,
       );
 
   Widget _empty(_) => Container(

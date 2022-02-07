@@ -12,20 +12,45 @@ class MovieListCubit extends Cubit<MovieListState> {
 
   MovieListCubit(this._apiService) : super(MovieListState.initial(""));
 
-  Future<void> loadMovies(String query) async {
-    emit(MovieListState.loading(query));
+  Map<int, List<Movie>> movies = {};
 
-    final response = await _apiService.searchMovies(query);
+  Future<void> loadMovies(String query) async {
+    movies.clear();
+    emit(MovieListState.loading(query));
+    await _load(query, page: 1);
+  }
+
+  Future<void> loadMore() async {
+    await _load(state.query, page: movies.entries.last.key + 1);
+  }
+
+  Future<void> _load(String query, {required page}) async {
+    if (query.isEmpty) {
+      emit(MovieListState.initial(""));
+      return;
+    }
+
+    final response = await _apiService.searchMovies(query, page);
 
     response.fold(
-      (movies) {
-        emit(movies.isEmpty
+      (movieList) {
+        movies[page] = movieList.results;
+        final allMovies = _getAllMovies();
+        final canLoadMore = movieList.page < movieList.totalPages;
+
+        emit(allMovies.isEmpty
             ? MovieListState.empty(query)
-            : MovieListState.loadSuccess(
-                query, movies..sort(MovieList.compareVoteAverage)));
+            : MovieListState.loadSuccess(query, allMovies, canLoadMore));
       },
       (error) => emit(MovieListState.loadFailure(query, error)),
     );
+  }
+
+  List<Movie> _getAllMovies() {
+    return movies.values.fold(
+      [],
+      (finalList, pageList) => finalList..addAll(pageList),
+    )..sort(MovieList.compareVoteAverage);
   }
 }
 
@@ -36,6 +61,6 @@ class MovieListState with _$MovieListState {
   const factory MovieListState.loadFailure(String query, AppException error) =
       MovieListFailure;
   const factory MovieListState.empty(String query) = MovieListEmpty;
-  const factory MovieListState.loadSuccess(String query, List<Movie> movies) =
-      MovieListSuccess;
+  const factory MovieListState.loadSuccess(
+      String query, List<Movie> movies, bool canLoadMore) = MovieListSuccess;
 }

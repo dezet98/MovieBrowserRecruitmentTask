@@ -13,35 +13,40 @@ class ErrorComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_M),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          SizedBox(height: context.screenHeight * 0.3),
-          Text(
-            exception.text(),
-            textAlign: TextAlign.center,
-          ),
-          if (onRetry != null) ...[
-            SizedBox(height: Dimensions.PADDING_S),
-            SizedBox(
-              height: Dimensions.ICON_SIZE_XL,
-              width: Dimensions.ICON_SIZE_XL,
-              child: IconButton(
-                onPressed: onRetry,
-                padding: EdgeInsets.zero,
-                icon: Align(
-                  alignment: Alignment.center,
-                  child: Icon(
-                    Icons.repeat,
-                    size: Dimensions.ICON_SIZE_XL,
+      padding: EdgeInsets.symmetric(
+        vertical: context.screenHeight * 0.3,
+        horizontal: Dimensions.PADDING_M,
+      ),
+      child: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              exception.text(),
+              textAlign: TextAlign.center,
+            ),
+            if (onRetry != null) ...[
+              SizedBox(height: Dimensions.PADDING_S),
+              SizedBox(
+                height: Dimensions.ICON_SIZE_XL,
+                width: Dimensions.ICON_SIZE_XL,
+                child: IconButton(
+                  onPressed: onRetry,
+                  padding: EdgeInsets.zero,
+                  icon: Align(
+                    alignment: Alignment.center,
+                    child: Icon(
+                      Icons.repeat,
+                      size: Dimensions.ICON_SIZE_XL,
+                    ),
                   ),
                 ),
-              ),
-            )
-          ]
-        ],
+              )
+            ]
+          ],
+        ),
       ),
     );
   }

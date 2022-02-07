@@ -21,9 +21,13 @@ class ApiService {
     MovieApiInterceptor(),
   ]);
 
-  Future<Either<List<Movie>, AppException>> searchMovies(String query) async {
+  Future<Either<MovieList, AppException>> searchMovies(
+      String query, int page) async {
     try {
-      final parameters = {'query': query};
+      final parameters = {
+        'query': query,
+        'page': page.toString(),
+      };
 
       final encodedParameters = parameters.entries
           .map((entry) => '${_encode(entry.key)}=${_encode(entry.value)}')
@@ -32,9 +36,8 @@ class ApiService {
       final response = await _apiClient
           .get(Uri.parse('$baseUrl/search/movie?$encodedParameters'));
       final json = jsonDecode(response.body);
-      final movieList = MovieList.fromJson(json);
 
-      return left(movieList.results);
+      return left(MovieList.fromJson(json));
     } catch (e) {
       return right(AppException());
     }

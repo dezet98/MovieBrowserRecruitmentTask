@@ -1,16 +1,21 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'movie_list.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class MovieList {
+class MovieList extends Equatable {
   final int totalResults;
   final List<Movie> results;
+  final int page;
+  final int totalPages;
 
   MovieList({
     required this.totalResults,
     required this.results,
+    required this.page,
+    required this.totalPages,
   });
 
   factory MovieList.fromJson(Map<String, dynamic> json) =>
@@ -27,4 +32,7 @@ class MovieList {
     }
     return 0;
   }
+
+  @override
+  List<Object?> get props => [totalResults, results, totalPages, page];
 }
