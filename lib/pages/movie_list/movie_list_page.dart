@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recruitment_task/models/movie.dart';
-import 'package:flutter_recruitment_task/models/movie_list.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/movie_details_page.dart';
-import 'package:flutter_recruitment_task/pages/movie_list/movie_card.dart';
-import 'package:flutter_recruitment_task/pages/movie_list/search_box.dart';
+import 'package:flutter_recruitment_task/pages/movie_list/cubit/movie_list_cubit.dart';
+import 'package:flutter_recruitment_task/pages/movie_list/widgets/movie_card.dart';
+import 'package:flutter_recruitment_task/pages/movie_list/widgets/search_box.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
 import 'package:flutter_recruitment_task/shared/router.dart';
+import 'package:flutter_recruitment_task/utils/dimensions.dart';
 
-class MovieListPage extends StatefulWidget {
-  @override
-  _MovieListPage createState() => _MovieListPage();
-}
-
-class _MovieListPage extends State<MovieListPage> {
+class MovieListPage extends StatelessWidget {
   final apiService = ApiService();
-
-  Future<List<Movie>> _movieList = Future.value([]);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -24,62 +18,73 @@ class _MovieListPage extends State<MovieListPage> {
             IconButton(
               icon: Icon(Icons.movie_creation_outlined),
               onPressed: () {
-                //TODO implement navigation
+                context.router.pushNamed(AppRoutes.twoButtons);
               },
             ),
           ],
           title: Text('Movie Browser'),
         ),
-        body: Column(
-          children: <Widget>[
-            SearchBox(onSubmitted: _onSearchBoxSubmitted),
-            Expanded(child: _buildContent()),
-          ],
+        body: BlocProvider<MovieListCubit>(
+          create: (context) => MovieListCubit(ApiService()),
+          child: Column(
+            children: <Widget>[
+              SearchBox(),
+              Expanded(child: _MovieList()),
+            ],
+          ),
+        ),
+      );
+}
+
+class _MovieList extends StatelessWidget {
+  const _MovieList({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) =>
+      BlocBuilder<MovieListCubit, MovieListState>(
+        builder: (context, state) => state.map(
+          loading: _loading,
+          loadFailure: _loadFailure,
+          loadSuccess: _loadSuccess,
+          empty: _empty,
+          initial: _initial,
         ),
       );
 
-  Widget _buildContent() => FutureBuilder<List<Movie>>(
-      future: _movieList,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
-        }
-        if (snapshot.hasError) {
-          return Container(
-            padding: EdgeInsets.all(16.0),
-            alignment: Alignment.center,
-            child: Text(snapshot.error.toString()),
-          );
-        }
-        return _buildMoviesList(
-          (snapshot.data ?? [])..sort(MovieList.compareVoteAverage),
-        );
-      });
-
-  Widget _buildMoviesList(List<Movie> movies) => ListView.separated(
+  Widget _loadSuccess(MovieListSuccess state) => ListView.separated(
         separatorBuilder: (context, index) => Container(
           height: 1.0,
           color: Colors.grey.shade300,
         ),
         itemBuilder: (context, index) => MovieCard(
-          id: movies[index].id,
-          title: movies[index].title,
-          rating: '${(movies[index].voteAverage * 10).toInt()}%',
+          id: state.movies[index].id,
+          title: state.movies[index].title,
+          rating: '${(state.movies[index].voteAverage * 10).toInt()}%',
           onTap: () => context.router.pushNamed(
             AppRoutes.movieDetails,
-            arguments: MovieDetailsPageArguments(movies[index]),
+            arguments: MovieDetailsPageArguments(state.movies[index]),
           ),
         ),
-        itemCount: movies.length,
+        itemCount: state.movies.length,
       );
 
-  void _onSearchBoxSubmitted(String text) {
-    setState(() {
-      if (text.isNotEmpty) {
-        _movieList = apiService.searchMovies(text);
-      } else {
-        _movieList = Future.value([]);
-      }
-    });
-  }
+  Widget _loading(_) => Center(child: CircularProgressIndicator());
+
+  Widget _loadFailure(MovieListFailure state) => Container(
+        padding: EdgeInsets.all(Dimensions.PADDING_M),
+        alignment: Alignment.center,
+        child: Text(state.toString()),
+      );
+
+  Widget _empty(_) => Container(
+        padding: EdgeInsets.all(Dimensions.PADDING_M),
+        alignment: Alignment.center,
+        child: Text("No results"),
+      );
+
+  Widget _initial(_) => Container(
+        padding: EdgeInsets.all(Dimensions.PADDING_M),
+        alignment: Alignment.center,
+        child: Text("To find some movies use search"),
+      );
 }

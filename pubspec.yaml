@@ -12,6 +12,11 @@ dependencies:
   json_annotation: ^4.0.1
   http: ^0.13.3
   http_interceptor: ^1.0.2
+  bloc: ^8.0.2
+  freezed_annotation: ^0.15.0
+  freezed: ^0.14.2
+  dartz: ^0.10.1
+  flutter_bloc: ^8.0.1
 
 dev_dependencies:
   flutter_test:

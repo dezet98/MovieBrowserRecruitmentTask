@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recruitment_task/pages/movie_list/cubit/movie_list_cubit.dart';
+import 'package:provider/provider.dart';
 
 class SearchBox extends StatelessWidget {
-  final void Function(String)? onSubmitted;
-
-  const SearchBox({Key? key, this.onSubmitted}) : super(key: key);
+  const SearchBox({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
@@ -21,7 +21,9 @@ class SearchBox extends StatelessWidget {
             border: InputBorder.none,
             hintText: 'Search...',
           ),
-          onSubmitted: onSubmitted,
+          onSubmitted: (String query) {
+            context.read<MovieListCubit>().loadMovies(query);
+          },
         ),
       );
 }
