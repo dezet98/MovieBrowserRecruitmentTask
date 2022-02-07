@@ -26,5 +26,20 @@ class ApiService {
     return movieList.results;
   }
 
+  Future<Movie> getMovieDetails(int movieId) async {
+    final parameters = {'api_key': apiKey};
+
+    final encodedParameters = parameters.entries
+        .map((entry) => '${_encode(entry.key)}=${_encode(entry.value)}')
+        .join('&');
+
+    final response =
+        await http.get(Uri.parse('$baseUrl/movie/$movieId?$encodedParameters'));
+    final json = jsonDecode(response.body);
+    final movie = Movie.fromJson(json);
+
+    return movie;
+  }
+
   String _encode(String component) => Uri.encodeComponent(component);
 }

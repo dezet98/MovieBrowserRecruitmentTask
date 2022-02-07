@@ -11,6 +11,8 @@ Movie _$MovieFromJson(Map<String, dynamic> json) {
     title: json['title'] as String,
     voteAverage: (json['vote_average'] as num).toDouble(),
     id: json['id'] as int,
+    budget: json['budget'] as int?,
+    revenue: json['revenue'] as int?,
   );
 }
 
@@ -18,4 +20,6 @@ Map<String, dynamic> _$MovieToJson(Movie instance) => <String, dynamic>{
       'title': instance.title,
       'vote_average': instance.voteAverage,
       'id': instance.id,
+      'budget': instance.budget,
+      'revenue': instance.revenue,
     };

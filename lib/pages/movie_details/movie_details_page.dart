@@ -31,7 +31,18 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Hero(
+            tag: "movieTitle${widget.movie.id}",
+            child: Material(
+              type: MaterialType.transparency,
+              child: Text(
+                widget.movie.title,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+          ),
+        ),
         body: ListView.separated(
           separatorBuilder: (context, index) => Container(
             height: 1.0,

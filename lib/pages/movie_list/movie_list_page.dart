@@ -62,6 +62,7 @@ class _MovieListPage extends State<MovieListPage> {
           color: Colors.grey.shade300,
         ),
         itemBuilder: (context, index) => MovieCard(
+          id: movies[index].id,
           title: movies[index].title,
           rating: '${(movies[index].voteAverage * 10).toInt()}%',
           onTap: () => context.router.pushNamed(
