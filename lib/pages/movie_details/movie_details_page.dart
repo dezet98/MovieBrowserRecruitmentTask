@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
-import 'package:flutter_recruitment_task/pages/movie_details/move_detail.dart';
+import 'package:flutter_recruitment_task/pages/movie_details/move_details.dart';
+import 'package:flutter_recruitment_task/services/api_service.dart';
 
 class MovieDetailsPageArguments {
   final Movie movie;
@@ -18,14 +19,12 @@ class MovieDetailsPage extends StatefulWidget {
 }
 
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
-  final _details = [
-    MovieDetail(title: 'Budget', content: '\$2400000'),
-    MovieDetail(title: 'Revenue', content: '\$10000000'),
-    MovieDetail(title: 'Should I watch it today?', content: 'Yes!'),
-  ];
+  final apiService = ApiService();
+  late Future<Movie> _movie;
 
   @override
   void initState() {
+    _movie = apiService.getMovieDetails(widget.movie.id);
     super.initState();
   }
 
@@ -43,29 +42,24 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
             ),
           ),
         ),
-        body: ListView.separated(
-          separatorBuilder: (context, index) => Container(
-            height: 1.0,
-            color: Colors.grey.shade300,
-          ),
-          itemBuilder: (context, index) => Container(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  _details[index].title,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  _details[index].content,
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ],
-            ),
-          ),
-          itemCount: _details.length,
-        ),
+        body: _buildContent(),
       );
+
+  Widget _buildContent() => FutureBuilder<Movie>(
+      future: _movie,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return Center(child: CircularProgressIndicator());
+        }
+
+        if (snapshot.hasData) {
+          return MovieDetails(movie: snapshot.data!);
+        }
+
+        return Container(
+          padding: EdgeInsets.all(16.0),
+          alignment: Alignment.center,
+          child: Text(snapshot.error.toString()),
+        );
+      });
 }
