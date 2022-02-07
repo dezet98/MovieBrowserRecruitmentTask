@@ -56,15 +56,22 @@ class _MovieList extends StatelessWidget {
           height: 1.0,
           color: Colors.grey.shade300,
         ),
-        itemBuilder: (context, index) => MovieCard(
-          id: state.movies[index].id,
-          title: state.movies[index].title,
-          rating: '${(state.movies[index].voteAverage * 10).toInt()}%',
-          onTap: () => context.router.pushNamed(
-            AppRoutes.movieDetails,
-            arguments: MovieDetailsPageArguments(state.movies[index]),
-          ),
-        ),
+        itemBuilder: (context, index) {
+          final movie = state.movies[index];
+          final heroTag = "movieTitle${movie.id}";
+          return MovieCard(
+            heroTextTag: heroTag,
+            title: movie.title,
+            rating: '${(movie.voteAverage * 10).toInt()}%',
+            onTap: () => context.router.pushNamed(
+              AppRoutes.movieDetails,
+              arguments: MovieDetailsPageArguments(
+                movie,
+                heroTag,
+              ),
+            ),
+          );
+        },
         itemCount: state.movies.length,
       );
 

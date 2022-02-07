@@ -40,12 +40,16 @@ class ApiService {
     }
   }
 
-  Future<Movie> getMovieDetails(int movieId) async {
-    final response =
-        await _apiClient.get(Uri.parse('$baseUrl/movie/$movieId?'));
-    final json = jsonDecode(response.body);
+  Future<Either<Movie, AppException>> getMovieDetails(int movieId) async {
+    try {
+      final response =
+          await _apiClient.get(Uri.parse('$baseUrl/movie/$movieId?'));
+      final json = jsonDecode(response.body);
 
-    return Movie.fromJson(json);
+      return left(Movie.fromJson(json));
+    } catch (e) {
+      return right(AppException());
+    }
   }
 
   String _encode(String component) => Uri.encodeComponent(component);

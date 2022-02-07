@@ -17,7 +17,8 @@ Right now, app consists of only one screen: movie list. It allows user to search
 ## Tips
 
 To regenerate JSON models, use the following command:
-```
+
+```dart
 flutter pub run build_runner build
 ```
 

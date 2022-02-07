@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatelessWidget {
-  final int id;
+  final String heroTextTag;
   final String title;
   final String rating;
   final VoidCallback onTap;
 
   const MovieCard({
-    required this.id,
+    required this.heroTextTag,
     required this.title,
     required this.rating,
     required this.onTap,
@@ -24,7 +24,7 @@ class MovieCard extends StatelessWidget {
             children: [
               Expanded(
                 child: Hero(
-                  tag: "movieTitle$id",
+                  tag: heroTextTag,
                   child: Material(
                     type: MaterialType.transparency,
                     child: Text(

@@ -3,7 +3,6 @@ import 'package:flutter_recruitment_task/models/movie.dart';
 
 class MovieDetails extends StatelessWidget {
   final Movie movie;
-
   const MovieDetails({required this.movie, Key? key}) : super(key: key);
 
   @override

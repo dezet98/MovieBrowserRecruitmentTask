@@ -24,7 +24,7 @@ class AppRouter {
         final args = settings.arguments as MovieDetailsPageArguments;
 
         return MaterialPageRoute(
-          builder: (context) => MovieDetailsPage(movie: args.movie),
+          builder: (context) => MovieDetailsPage(args: args),
         );
       }
 
