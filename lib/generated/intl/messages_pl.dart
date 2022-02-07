@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "movieListTitle":
             MessageLookupByLibrary.simpleMessage("Wyszukiwarka filmów"),
         "no": MessageLookupByLibrary.simpleMessage("Nie!"),
+        "noInternet":
+            MessageLookupByLibrary.simpleMessage("Brak dostępu do internetu"),
         "noResults": MessageLookupByLibrary.simpleMessage("Brak rezultatów"),
         "revenue": MessageLookupByLibrary.simpleMessage("Przychód"),
         "search": MessageLookupByLibrary.simpleMessage("Szukaj..."),

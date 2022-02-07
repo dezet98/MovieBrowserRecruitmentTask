@@ -28,7 +28,7 @@ class _$MovieDetailsStateTearOff {
     );
   }
 
-  MovieDetailsFailure loadFailure(Movie movie, AppException error) {
+  MovieDetailsFailure loadFailure(Movie movie, AppError error) {
     return MovieDetailsFailure(
       movie,
       error,
@@ -53,7 +53,7 @@ mixin _$MovieDetailsState {
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) initial,
     required TResult Function(Movie movie) loading,
-    required TResult Function(Movie movie, AppException error) loadFailure,
+    required TResult Function(Movie movie, AppError error) loadFailure,
     required TResult Function(Movie movie) loadSuccess,
   }) =>
       throw _privateConstructorUsedError;
@@ -61,7 +61,7 @@ mixin _$MovieDetailsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? initial,
     TResult Function(Movie movie)? loading,
-    TResult Function(Movie movie, AppException error)? loadFailure,
+    TResult Function(Movie movie, AppError error)? loadFailure,
     TResult Function(Movie movie)? loadSuccess,
     required TResult orElse(),
   }) =>
@@ -188,7 +188,7 @@ class _$MovieDetailsInitial implements MovieDetailsInitial {
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) initial,
     required TResult Function(Movie movie) loading,
-    required TResult Function(Movie movie, AppException error) loadFailure,
+    required TResult Function(Movie movie, AppError error) loadFailure,
     required TResult Function(Movie movie) loadSuccess,
   }) {
     return initial(movie);
@@ -199,7 +199,7 @@ class _$MovieDetailsInitial implements MovieDetailsInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? initial,
     TResult Function(Movie movie)? loading,
-    TResult Function(Movie movie, AppException error)? loadFailure,
+    TResult Function(Movie movie, AppError error)? loadFailure,
     TResult Function(Movie movie)? loadSuccess,
     required TResult orElse(),
   }) {
@@ -316,7 +316,7 @@ class _$MovieDetailsLoading implements MovieDetailsLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) initial,
     required TResult Function(Movie movie) loading,
-    required TResult Function(Movie movie, AppException error) loadFailure,
+    required TResult Function(Movie movie, AppError error) loadFailure,
     required TResult Function(Movie movie) loadSuccess,
   }) {
     return loading(movie);
@@ -327,7 +327,7 @@ class _$MovieDetailsLoading implements MovieDetailsLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? initial,
     TResult Function(Movie movie)? loading,
-    TResult Function(Movie movie, AppException error)? loadFailure,
+    TResult Function(Movie movie, AppError error)? loadFailure,
     TResult Function(Movie movie)? loadSuccess,
     required TResult orElse(),
   }) {
@@ -382,7 +382,7 @@ abstract class $MovieDetailsFailureCopyWith<$Res>
           MovieDetailsFailure value, $Res Function(MovieDetailsFailure) then) =
       _$MovieDetailsFailureCopyWithImpl<$Res>;
   @override
-  $Res call({Movie movie, AppException error});
+  $Res call({Movie movie, AppError error});
 }
 
 /// @nodoc
@@ -409,7 +409,7 @@ class _$MovieDetailsFailureCopyWithImpl<$Res>
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as AppException,
+              as AppError,
     ));
   }
 }
@@ -422,7 +422,7 @@ class _$MovieDetailsFailure implements MovieDetailsFailure {
   @override
   final Movie movie;
   @override
-  final AppException error;
+  final AppError error;
 
   @override
   String toString() {
@@ -455,7 +455,7 @@ class _$MovieDetailsFailure implements MovieDetailsFailure {
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) initial,
     required TResult Function(Movie movie) loading,
-    required TResult Function(Movie movie, AppException error) loadFailure,
+    required TResult Function(Movie movie, AppError error) loadFailure,
     required TResult Function(Movie movie) loadSuccess,
   }) {
     return loadFailure(movie, error);
@@ -466,7 +466,7 @@ class _$MovieDetailsFailure implements MovieDetailsFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? initial,
     TResult Function(Movie movie)? loading,
-    TResult Function(Movie movie, AppException error)? loadFailure,
+    TResult Function(Movie movie, AppError error)? loadFailure,
     TResult Function(Movie movie)? loadSuccess,
     required TResult orElse(),
   }) {
@@ -504,12 +504,12 @@ class _$MovieDetailsFailure implements MovieDetailsFailure {
 }
 
 abstract class MovieDetailsFailure implements MovieDetailsState {
-  const factory MovieDetailsFailure(Movie movie, AppException error) =
+  const factory MovieDetailsFailure(Movie movie, AppError error) =
       _$MovieDetailsFailure;
 
   @override
   Movie get movie => throw _privateConstructorUsedError;
-  AppException get error => throw _privateConstructorUsedError;
+  AppError get error => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $MovieDetailsFailureCopyWith<MovieDetailsFailure> get copyWith =>
@@ -585,7 +585,7 @@ class _$MovieDetailsSuccess implements MovieDetailsSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function(Movie movie) initial,
     required TResult Function(Movie movie) loading,
-    required TResult Function(Movie movie, AppException error) loadFailure,
+    required TResult Function(Movie movie, AppError error) loadFailure,
     required TResult Function(Movie movie) loadSuccess,
   }) {
     return loadSuccess(movie);
@@ -596,7 +596,7 @@ class _$MovieDetailsSuccess implements MovieDetailsSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Movie movie)? initial,
     TResult Function(Movie movie)? loading,
-    TResult Function(Movie movie, AppException error)? loadFailure,
+    TResult Function(Movie movie, AppError error)? loadFailure,
     TResult Function(Movie movie)? loadSuccess,
     required TResult orElse(),
   }) {

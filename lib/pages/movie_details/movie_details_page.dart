@@ -17,7 +17,7 @@ class MovieDetailsPageArguments {
 class MovieDetailsPage extends StatelessWidget {
   final MovieDetailsPageArguments args;
 
-  const MovieDetailsPage({required this.args});
+  const MovieDetailsPage({required this.args, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => BlocProvider<MovieDetailsCubit>(
@@ -26,7 +26,7 @@ class MovieDetailsPage extends StatelessWidget {
           appBar: AppBar(
             title: _MovieTitle(heroTag: args.textHeroTag),
           ),
-          body: _MovieView(),
+          body: const _MovieView(),
         ),
       );
 }
@@ -40,10 +40,10 @@ class _MovieView extends StatelessWidget {
       builder: (context, state) => state.maybeWhen(
         loadSuccess: (movie) => MovieDetails(movie: state.movie),
         loadFailure: (_, error) => ErrorComponent(
-          exception: error,
+          error: error,
           onRetry: () => context.read<MovieDetailsCubit>().load(),
         ),
-        orElse: () => LoadingComponent(),
+        orElse: () => const LoadingComponent(),
       ),
     );
   }
@@ -66,6 +66,8 @@ class _MovieTitle extends StatelessWidget {
         child: Text(
           movieTitle,
           style: Theme.of(context).textTheme.headline6,
+          maxLines: 2,
+          overflow: TextOverflow.ellipsis,
         ),
       ),
     );

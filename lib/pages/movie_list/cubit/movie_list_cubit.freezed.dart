@@ -28,7 +28,7 @@ class _$MovieListStateTearOff {
     );
   }
 
-  MovieListFailure loadFailure(String query, AppException error) {
+  MovieListFailure loadFailure(String query, AppError error) {
     return MovieListFailure(
       query,
       error,
@@ -62,7 +62,7 @@ mixin _$MovieListState {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) initial,
     required TResult Function(String query) loading,
-    required TResult Function(String query, AppException error) loadFailure,
+    required TResult Function(String query, AppError error) loadFailure,
     required TResult Function(String query) empty,
     required TResult Function(
             String query, List<Movie> movies, bool canLoadMore)
@@ -73,7 +73,7 @@ mixin _$MovieListState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? initial,
     TResult Function(String query)? loading,
-    TResult Function(String query, AppException error)? loadFailure,
+    TResult Function(String query, AppError error)? loadFailure,
     TResult Function(String query)? empty,
     TResult Function(String query, List<Movie> movies, bool canLoadMore)?
         loadSuccess,
@@ -204,7 +204,7 @@ class _$MovieListInitial implements MovieListInitial {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) initial,
     required TResult Function(String query) loading,
-    required TResult Function(String query, AppException error) loadFailure,
+    required TResult Function(String query, AppError error) loadFailure,
     required TResult Function(String query) empty,
     required TResult Function(
             String query, List<Movie> movies, bool canLoadMore)
@@ -218,7 +218,7 @@ class _$MovieListInitial implements MovieListInitial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? initial,
     TResult Function(String query)? loading,
-    TResult Function(String query, AppException error)? loadFailure,
+    TResult Function(String query, AppError error)? loadFailure,
     TResult Function(String query)? empty,
     TResult Function(String query, List<Movie> movies, bool canLoadMore)?
         loadSuccess,
@@ -339,7 +339,7 @@ class _$MovieListLoading implements MovieListLoading {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) initial,
     required TResult Function(String query) loading,
-    required TResult Function(String query, AppException error) loadFailure,
+    required TResult Function(String query, AppError error) loadFailure,
     required TResult Function(String query) empty,
     required TResult Function(
             String query, List<Movie> movies, bool canLoadMore)
@@ -353,7 +353,7 @@ class _$MovieListLoading implements MovieListLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? initial,
     TResult Function(String query)? loading,
-    TResult Function(String query, AppException error)? loadFailure,
+    TResult Function(String query, AppError error)? loadFailure,
     TResult Function(String query)? empty,
     TResult Function(String query, List<Movie> movies, bool canLoadMore)?
         loadSuccess,
@@ -412,7 +412,7 @@ abstract class $MovieListFailureCopyWith<$Res>
           MovieListFailure value, $Res Function(MovieListFailure) then) =
       _$MovieListFailureCopyWithImpl<$Res>;
   @override
-  $Res call({String query, AppException error});
+  $Res call({String query, AppError error});
 }
 
 /// @nodoc
@@ -439,7 +439,7 @@ class _$MovieListFailureCopyWithImpl<$Res>
       error == freezed
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
-              as AppException,
+              as AppError,
     ));
   }
 }
@@ -452,7 +452,7 @@ class _$MovieListFailure implements MovieListFailure {
   @override
   final String query;
   @override
-  final AppException error;
+  final AppError error;
 
   @override
   String toString() {
@@ -485,7 +485,7 @@ class _$MovieListFailure implements MovieListFailure {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) initial,
     required TResult Function(String query) loading,
-    required TResult Function(String query, AppException error) loadFailure,
+    required TResult Function(String query, AppError error) loadFailure,
     required TResult Function(String query) empty,
     required TResult Function(
             String query, List<Movie> movies, bool canLoadMore)
@@ -499,7 +499,7 @@ class _$MovieListFailure implements MovieListFailure {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? initial,
     TResult Function(String query)? loading,
-    TResult Function(String query, AppException error)? loadFailure,
+    TResult Function(String query, AppError error)? loadFailure,
     TResult Function(String query)? empty,
     TResult Function(String query, List<Movie> movies, bool canLoadMore)?
         loadSuccess,
@@ -541,12 +541,12 @@ class _$MovieListFailure implements MovieListFailure {
 }
 
 abstract class MovieListFailure implements MovieListState {
-  const factory MovieListFailure(String query, AppException error) =
+  const factory MovieListFailure(String query, AppError error) =
       _$MovieListFailure;
 
   @override
   String get query => throw _privateConstructorUsedError;
-  AppException get error => throw _privateConstructorUsedError;
+  AppError get error => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   $MovieListFailureCopyWith<MovieListFailure> get copyWith =>
@@ -622,7 +622,7 @@ class _$MovieListEmpty implements MovieListEmpty {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) initial,
     required TResult Function(String query) loading,
-    required TResult Function(String query, AppException error) loadFailure,
+    required TResult Function(String query, AppError error) loadFailure,
     required TResult Function(String query) empty,
     required TResult Function(
             String query, List<Movie> movies, bool canLoadMore)
@@ -636,7 +636,7 @@ class _$MovieListEmpty implements MovieListEmpty {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? initial,
     TResult Function(String query)? loading,
-    TResult Function(String query, AppException error)? loadFailure,
+    TResult Function(String query, AppError error)? loadFailure,
     TResult Function(String query)? empty,
     TResult Function(String query, List<Movie> movies, bool canLoadMore)?
         loadSuccess,
@@ -779,7 +779,7 @@ class _$MovieListSuccess implements MovieListSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function(String query) initial,
     required TResult Function(String query) loading,
-    required TResult Function(String query, AppException error) loadFailure,
+    required TResult Function(String query, AppError error) loadFailure,
     required TResult Function(String query) empty,
     required TResult Function(
             String query, List<Movie> movies, bool canLoadMore)
@@ -793,7 +793,7 @@ class _$MovieListSuccess implements MovieListSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(String query)? initial,
     TResult Function(String query)? loading,
-    TResult Function(String query, AppException error)? loadFailure,
+    TResult Function(String query, AppError error)? loadFailure,
     TResult Function(String query)? empty,
     TResult Function(String query, List<Movie> movies, bool canLoadMore)?
         loadSuccess,

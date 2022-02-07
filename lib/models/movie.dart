@@ -11,7 +11,7 @@ class Movie extends Equatable {
   final int? budget;
   final int? revenue;
 
-  Movie({
+  const Movie({
     required this.title,
     required this.voteAverage,
     required this.id,

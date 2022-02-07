@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ButtonTwoStates extends StatefulWidget {
-  const ButtonTwoStates({
-    this.isOn = false,
-    this.onChange,
-  });
+  const ButtonTwoStates({this.isOn = false, this.onChange, Key? key})
+      : super(key: key);
 
   final bool isOn;
   final ValueChanged<bool>? onChange;
@@ -25,13 +23,13 @@ class _ButtonTwoStatesState extends State<ButtonTwoStates> {
 
   @override
   Widget build(BuildContext context) => InkWell(
-      onTap: _toggleState,
-      child: Container(
-        width: 80.0,
-        height: 56.0,
-        color: _isOn ? Colors.red : Colors.green,
-      ),
-    );
+        onTap: _toggleState,
+        child: Container(
+          width: 80.0,
+          height: 56.0,
+          color: _isOn ? Colors.red : Colors.green,
+        ),
+      );
 
   void _toggleState() {
     _isOn = !_isOn;

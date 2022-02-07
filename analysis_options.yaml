@@ -1,0 +1,13 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "lib/generated/intl/*"
+  errors:
+    invalid_annotation_target: ignore
+    implementation_imports: ignore
+    
+linter:
+  rules:

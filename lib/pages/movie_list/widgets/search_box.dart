@@ -4,7 +4,7 @@ import 'package:flutter_recruitment_task/utils/extensions.dart';
 import 'package:provider/provider.dart';
 
 class SearchBox extends StatefulWidget {
-  SearchBox({Key? key}) : super(key: key);
+  const SearchBox({Key? key}) : super(key: key);
 
   @override
   State<SearchBox> createState() => _SearchBoxState();
@@ -26,7 +26,7 @@ class _SearchBoxState extends State<SearchBox> {
           controller: _controller,
           textAlignVertical: TextAlignVertical.center,
           decoration: InputDecoration(
-            prefixIcon: Icon(Icons.search),
+            prefixIcon: const Icon(Icons.search),
             suffixIcon: _controller.text.isEmpty
                 ? null
                 : InkWell(

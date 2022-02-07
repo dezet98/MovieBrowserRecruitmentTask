@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recruitment_task/utils/dimensions.dart';
 
 class MovieCard extends StatelessWidget {
   final String heroTextTag;
@@ -19,7 +20,7 @@ class MovieCard extends StatelessWidget {
         onTap: onTap,
         child: Container(
           height: 48.0,
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: Dimensions.PADDING_M),
           child: Row(
             children: [
               Expanded(
@@ -35,7 +36,7 @@ class MovieCard extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(width: 16.0),
+              const SizedBox(width: Dimensions.PADDING_M),
               Text(
                 '$rating 🌟',
                 style: Theme.of(context).textTheme.subtitle1,

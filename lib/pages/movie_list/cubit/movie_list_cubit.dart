@@ -2,15 +2,15 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_list.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
-import 'package:flutter_recruitment_task/utils/exceptions.dart';
+import 'package:flutter_recruitment_task/utils/errors.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'movie_list_cubit.freezed.dart';
 
 class MovieListCubit extends Cubit<MovieListState> {
-  ApiService _apiService;
+  final ApiService _apiService;
 
-  MovieListCubit(this._apiService) : super(MovieListState.initial(""));
+  MovieListCubit(this._apiService) : super(const MovieListState.initial(""));
 
   Map<int, List<Movie>> movies = {};
 
@@ -22,7 +22,7 @@ class MovieListCubit extends Cubit<MovieListState> {
 
   Future<void> clear() async {
     movies.clear();
-    emit(MovieListState.initial(""));
+    emit(const MovieListState.initial(""));
   }
 
   Future<void> loadMore() async {
@@ -62,7 +62,7 @@ class MovieListCubit extends Cubit<MovieListState> {
 class MovieListState with _$MovieListState {
   const factory MovieListState.initial(String query) = MovieListInitial;
   const factory MovieListState.loading(String query) = MovieListLoading;
-  const factory MovieListState.loadFailure(String query, AppException error) =
+  const factory MovieListState.loadFailure(String query, AppError error) =
       MovieListFailure;
   const factory MovieListState.empty(String query) = MovieListEmpty;
   const factory MovieListState.loadSuccess(

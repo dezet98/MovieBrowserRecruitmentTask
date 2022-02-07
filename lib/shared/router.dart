@@ -12,12 +12,12 @@ class AppRoutes {
 }
 
 class AppRouter {
-  static final initialRoute = AppRoutes.movieList;
+  static const initialRoute = AppRoutes.movieList;
 
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     try {
       if (settings.name == AppRoutes.movieList) {
-        return MaterialPageRoute(builder: (context) => MovieListPage());
+        return MaterialPageRoute(builder: (context) => const MovieListPage());
       }
 
       if (settings.name == AppRoutes.movieDetails) {
@@ -29,7 +29,7 @@ class AppRouter {
       }
 
       if (settings.name == AppRoutes.twoButtons) {
-        return MaterialPageRoute(builder: (context) => TwoButtonsPage());
+        return MaterialPageRoute(builder: (context) => const TwoButtonsPage());
       }
 
       assert(false, 'No implement: ${settings.name}');

@@ -3,6 +3,8 @@ import 'package:flutter_recruitment_task/pages/two_buttons/button_two_states.dar
 import 'package:flutter_recruitment_task/utils/extensions.dart';
 
 class TwoButtonsPage extends StatefulWidget {
+  const TwoButtonsPage({Key? key}) : super(key: key);
+
   @override
   _TwoButtonsPageState createState() => _TwoButtonsPageState();
 }

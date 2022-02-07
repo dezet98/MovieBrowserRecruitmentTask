@@ -3,5 +3,5 @@ import 'package:flutter_recruitment_task/app/movie_app.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MovieApp());
+  runApp(const MovieApp());
 }

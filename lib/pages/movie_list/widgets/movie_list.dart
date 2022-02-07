@@ -12,7 +12,7 @@ class MovieListView extends StatefulWidget {
   final List<Movie> movies;
   final bool canLoadMore;
 
-  MovieListView({required this.movies, required this.canLoadMore, Key? key})
+  const MovieListView({required this.movies, required this.canLoadMore, Key? key})
       : super(key: key);
 
   @override
@@ -26,7 +26,6 @@ class _MovieListViewState extends State<MovieListView> {
   void didChangeDependencies() {
     Locale myLocale = Localizations.localeOf(context);
     ApiService().setLanguage(myLocale.languageCode);
-    print('my locale ${myLocale}');
     super.didChangeDependencies();
   }
 
@@ -50,7 +49,7 @@ class _MovieListViewState extends State<MovieListView> {
           height: 1.0,
           color: Colors.grey.shade300,
         ),
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         itemBuilder: (context, index) {
           final movie = widget.movies[index];
           final heroTag = "movieTitle${movie.id}";

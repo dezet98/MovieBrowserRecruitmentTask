@@ -32,6 +32,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "To find some movies use search"),
         "movieListTitle": MessageLookupByLibrary.simpleMessage("Movie Browser"),
         "no": MessageLookupByLibrary.simpleMessage("No!"),
+        "noInternet":
+            MessageLookupByLibrary.simpleMessage("No network connection"),
         "noResults": MessageLookupByLibrary.simpleMessage("No results"),
         "revenue": MessageLookupByLibrary.simpleMessage("Revenue"),
         "search": MessageLookupByLibrary.simpleMessage("Search..."),

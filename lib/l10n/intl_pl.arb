@@ -10,5 +10,6 @@
     "dolarPrefix": "${amount}",
     "search": "Szukaj...",
     "buttonsTitle": "2-stanowe przyciski",
-    "errorOccur": "Wystąpił błąd"
+    "errorOccur": "Wystąpił błąd",
+    "noInternet": "Brak dostępu do internetu"
 }

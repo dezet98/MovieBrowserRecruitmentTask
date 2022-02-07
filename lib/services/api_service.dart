@@ -1,10 +1,13 @@
 import 'dart:convert';
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_list.dart';
 import 'package:flutter_recruitment_task/utils/constants.dart';
-import 'package:flutter_recruitment_task/utils/exceptions.dart';
+import 'package:flutter_recruitment_task/utils/errors.dart';
 import 'package:http_interceptor/http/http.dart';
+
 import 'interceptors.dart';
 
 class ApiService {
@@ -27,7 +30,7 @@ class ApiService {
     MovieApiInterceptor(),
   ]);
 
-  Future<Either<MovieList, AppException>> searchMovies(
+  Future<Either<MovieList, AppError>> searchMovies(
       String query, int page) async {
     try {
       final parameters = {
@@ -42,15 +45,19 @@ class ApiService {
 
       final response = await _apiClient
           .get(Uri.parse('$baseUrl/search/movie?$encodedParameters'));
+      if (response.statusCode != 200) {
+        throw HttpException('${response.statusCode}');
+      }
       final json = jsonDecode(response.body);
 
       return left(MovieList.fromJson(json));
     } catch (e) {
-      return right(AppException());
+      final error = _handleErrors(e);
+      return right(error);
     }
   }
 
-  Future<Either<Movie, AppException>> getMovieDetails(int movieId) async {
+  Future<Either<Movie, AppError>> getMovieDetails(int movieId) async {
     try {
       final parameters = {'language': _language};
 
@@ -60,13 +67,24 @@ class ApiService {
 
       final response = await _apiClient
           .get(Uri.parse('$baseUrl/movie/$movieId?$encodedParameters'));
+      if (response.statusCode != 200) {
+        throw HttpException('${response.statusCode}');
+      }
       final json = jsonDecode(response.body);
 
       return left(Movie.fromJson(json));
     } catch (e) {
-      return right(AppException());
+      final error = _handleErrors(e);
+      return right(error);
     }
   }
 
   String _encode(String component) => Uri.encodeComponent(component);
+
+  AppError _handleErrors(e) {
+    if (e is SocketException) {
+      return NoInternetError();
+    }
+    throw e;
+  }
 }

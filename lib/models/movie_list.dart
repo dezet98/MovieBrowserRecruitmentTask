@@ -11,7 +11,7 @@ class MovieList extends Equatable {
   final int page;
   final int totalPages;
 
-  MovieList({
+  const MovieList({
     required this.totalResults,
     required this.results,
     required this.page,

@@ -12,26 +12,31 @@ import 'package:flutter_recruitment_task/utils/extensions.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class MovieListPage extends StatelessWidget {
+  const MovieListPage({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: Icon(Icons.movie_creation_outlined),
-              onPressed: () {
-                context.router.pushNamed(AppRoutes.twoButtons);
-              },
-            ),
-          ],
-          title: Text(context.strings.movieListTitle),
-        ),
-        body: BlocProvider<MovieListCubit>(
-          create: (context) => MovieListCubit(ApiService()),
-          child: Column(
-            children: <Widget>[
-              SearchBox(),
-              Expanded(child: _MovieList()),
+  Widget build(BuildContext context) => GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Scaffold(
+          appBar: AppBar(
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.movie_creation_outlined),
+                onPressed: () {
+                  context.router.pushNamed(AppRoutes.twoButtons);
+                },
+              ),
             ],
+            title: Text(context.strings.movieListTitle),
+          ),
+          body: BlocProvider<MovieListCubit>(
+            create: (context) => MovieListCubit(ApiService()),
+            child: Column(
+              children: <Widget>[
+                const SearchBox(),
+                Expanded(child: _MovieList()),
+              ],
+            ),
           ),
         ),
       );
@@ -46,9 +51,9 @@ class _MovieList extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocBuilder<MovieListCubit, MovieListState>(
         builder: (context, state) => state.map(
-          loading: (_) => LoadingComponent(),
+          loading: (_) => const LoadingComponent(),
           loadFailure: (failureState) => ErrorComponent(
-            exception: failureState.error,
+            error: failureState.error,
             onRetry: () =>
                 context.read<MovieListCubit>().loadMovies(state.query),
           ),
@@ -62,13 +67,13 @@ class _MovieList extends StatelessWidget {
       );
 
   Widget _empty(BuildContext context) => Container(
-        padding: EdgeInsets.all(Dimensions.PADDING_M),
+        padding: const EdgeInsets.all(Dimensions.PADDING_M),
         alignment: Alignment.center,
         child: Text(context.strings.noResults),
       );
 
   Widget _initial(BuildContext context) => Container(
-        padding: EdgeInsets.all(Dimensions.PADDING_M),
+        padding: const EdgeInsets.all(Dimensions.PADDING_M),
         alignment: Alignment.center,
         child: Text(context.strings.movieListInitial),
       );

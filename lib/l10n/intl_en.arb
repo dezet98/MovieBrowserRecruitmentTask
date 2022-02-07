@@ -10,6 +10,6 @@
     "dolarPrefix": "${amount}",
     "search": "Search...",
     "buttonsTitle": "2-state buttons",
-    "errorOccur": "Error occur"
-
+    "errorOccur": "Error occur",
+    "noInternet": "No network connection"
 }

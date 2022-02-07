@@ -6,6 +6,4 @@ extension BuildContextExt on BuildContext {
   double get screenWidth => MediaQuery.of(this).size.width;
 
   S get strings => S.of(this);
-
-  String get languageCode => 'pl';
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
+import 'package:flutter_recruitment_task/utils/dimensions.dart';
 import 'package:flutter_recruitment_task/utils/extensions.dart';
 
 class MovieDetails extends StatelessWidget {
@@ -16,7 +17,7 @@ class MovieDetails extends StatelessWidget {
         color: Colors.grey.shade300,
       ),
       itemBuilder: (context, index) => Container(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(Dimensions.PADDING_M),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -24,7 +25,7 @@ class MovieDetails extends StatelessWidget {
               movieDetails[index].title,
               style: Theme.of(context).textTheme.headline5,
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Text(
               movieDetails[index].content,
               style: Theme.of(context).textTheme.subtitle1,
