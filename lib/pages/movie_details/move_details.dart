@@ -42,7 +42,9 @@ class MovieDetails extends StatelessWidget {
         _MovieDetail(title: 'Budget', content: '\$${movie.budget}'),
       if (movie.revenue != null)
         _MovieDetail(title: 'Revenue', content: '\$${movie.revenue}'),
-      _MovieDetail(title: 'Should I watch it today?', content: 'Yes!'),
+      _MovieDetail(
+          title: 'Should I watch it today?',
+          content: movie.shouldWatch() ? 'Yes!' : "No!"),
     ];
   }
 }

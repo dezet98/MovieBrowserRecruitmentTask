@@ -21,4 +21,14 @@ class Movie {
   factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieToJson(this);
+
+  int get profit => (revenue ?? 0) - (budget ?? 0);
+
+  bool shouldWatch() {
+    if (DateTime.now().weekday == DateTime.sunday && profit > 1000000) {
+      return true;
+    }
+
+    return false;
+  }
 }
