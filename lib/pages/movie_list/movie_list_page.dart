@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_recruitment_task/components/error_component.dart';
+import 'package:flutter_recruitment_task/components/loading_component.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/movie_details_page.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/cubit/movie_list_cubit.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/widgets/movie_card.dart';
@@ -43,8 +45,12 @@ class _MovieList extends StatelessWidget {
   Widget build(BuildContext context) =>
       BlocBuilder<MovieListCubit, MovieListState>(
         builder: (context, state) => state.map(
-          loading: _loading,
-          loadFailure: _loadFailure,
+          loading: (_) => LoadingComponent(),
+          loadFailure: (failureState) => ErrorComponent(
+            exception: failureState.error,
+            onRetry: () =>
+                context.read<MovieListCubit>().loadMovies(state.query),
+          ),
           loadSuccess: _loadSuccess,
           empty: _empty,
           initial: _initial,
@@ -73,14 +79,6 @@ class _MovieList extends StatelessWidget {
           );
         },
         itemCount: state.movies.length,
-      );
-
-  Widget _loading(_) => Center(child: CircularProgressIndicator());
-
-  Widget _loadFailure(MovieListFailure state) => Container(
-        padding: EdgeInsets.all(Dimensions.PADDING_M),
-        alignment: Alignment.center,
-        child: Text(state.toString()),
       );
 
   Widget _empty(_) => Container(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_recruitment_task/components/error_component.dart';
+import 'package:flutter_recruitment_task/components/loading_component.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/cubit/movie_details_cubit.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/widgets/move_details.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
-import 'package:flutter_recruitment_task/utils/dimensions.dart';
-import 'package:flutter_recruitment_task/utils/exceptions.dart';
 
 class MovieDetailsPageArguments {
   final Movie movie;
@@ -39,17 +39,14 @@ class _MovieView extends StatelessWidget {
     return BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
       builder: (context, state) => state.maybeWhen(
         loadSuccess: (movie) => MovieDetails(movie: state.movie),
-        loadFailure: (_, error) => _loadFailure(error),
-        orElse: () => Center(child: CircularProgressIndicator()),
+        loadFailure: (_, error) => ErrorComponent(
+          exception: error,
+          onRetry: () => context.read<MovieDetailsCubit>().load(),
+        ),
+        orElse: () => LoadingComponent(),
       ),
     );
   }
-
-  Widget _loadFailure(AppException error) => Container(
-        padding: EdgeInsets.all(Dimensions.PADDING_M),
-        alignment: Alignment.center,
-        child: Text(error.toString()),
-      );
 }
 
 class _MovieTitle extends StatelessWidget {
