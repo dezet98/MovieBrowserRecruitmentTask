@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
+import 'package:flutter_recruitment_task/models/movie_list.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/movie_card.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/search_box.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
@@ -40,15 +41,17 @@ class _MovieListPage extends State<MovieListPage> {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
+        }
+        if (snapshot.hasError) {
           return Container(
             padding: EdgeInsets.all(16.0),
             alignment: Alignment.center,
             child: Text(snapshot.error.toString()),
           );
-        } else {
-          return _buildMoviesList(snapshot.data ?? []);
         }
+        return _buildMoviesList(
+          (snapshot.data ?? [])..sort(MovieList.compareVoteAverage),
+        );
       });
 
   Widget _buildMoviesList(List<Movie> movies) => ListView.separated(

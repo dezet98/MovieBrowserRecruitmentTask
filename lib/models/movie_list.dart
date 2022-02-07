@@ -17,4 +17,14 @@ class MovieList {
       _$MovieListFromJson(json);
 
   Map<String, dynamic> toJson() => _$MovieListToJson(this);
+
+  static int compareVoteAverage(Movie firstMovie, Movie secondMovie) {
+    if (firstMovie.voteAverage < secondMovie.voteAverage) {
+      return 1;
+    }
+    if (firstMovie.voteAverage > secondMovie.voteAverage) {
+      return -1;
+    }
+    return 0;
+  }
 }
