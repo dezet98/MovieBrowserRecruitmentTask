@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/models/movie_list.dart';
+import 'package:flutter_recruitment_task/pages/movie_details/movie_details_page.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/movie_card.dart';
 import 'package:flutter_recruitment_task/pages/movie_list/search_box.dart';
 import 'package:flutter_recruitment_task/services/api_service.dart';
+import 'package:flutter_recruitment_task/shared/router.dart';
 
 class MovieListPage extends StatefulWidget {
   @override
@@ -62,7 +64,10 @@ class _MovieListPage extends State<MovieListPage> {
         itemBuilder: (context, index) => MovieCard(
           title: movies[index].title,
           rating: '${(movies[index].voteAverage * 10).toInt()}%',
-          onTap: () {},
+          onTap: () => context.router.pushNamed(
+            AppRoutes.movieDetails,
+            arguments: MovieDetailsPageArguments(movies[index]),
+          ),
         ),
         itemCount: movies.length,
       );

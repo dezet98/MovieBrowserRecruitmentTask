@@ -1,7 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recruitment_task/models/movie.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/move_detail.dart';
 
+class MovieDetailsPageArguments {
+  final Movie movie;
+
+  const MovieDetailsPageArguments(this.movie);
+}
+
 class MovieDetailsPage extends StatefulWidget {
+  final Movie movie;
+
+  const MovieDetailsPage({required this.movie});
+
   @override
   _MovieDetailsPageState createState() => _MovieDetailsPageState();
 }
