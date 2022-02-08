@@ -50,20 +50,25 @@ class _MovieList extends StatelessWidget {
   @override
   Widget build(BuildContext context) =>
       BlocBuilder<MovieListCubit, MovieListState>(
-        builder: (context, state) => state.map(
-          loading: (_) => const LoadingComponent(),
-          loadFailure: (failureState) => ErrorComponent(
-            error: failureState.error,
-            onRetry: () =>
-                context.read<MovieListCubit>().loadMovies(state.query),
-          ),
-          loadSuccess: (successState) => MovieListView(
-            movies: successState.movies,
-            canLoadMore: successState.canLoadMore,
-          ),
-          empty: (_) => _empty(context),
-          initial: (_) => _initial(context),
+        builder: (context, state) => AnimatedSwitcher(
+          duration: const Duration(milliseconds: 300),
+          child: _buildFromState(context, state),
         ),
+      );
+
+  Widget _buildFromState(BuildContext context, MovieListState state) =>
+      state.map(
+        loading: (_) => const LoadingComponent(),
+        loadFailure: (failureState) => ErrorComponent(
+          error: failureState.error,
+          onRetry: () => context.read<MovieListCubit>().loadMovies(state.query),
+        ),
+        loadSuccess: (successState) => MovieListView(
+          movies: successState.movies,
+          canLoadMore: successState.canLoadMore,
+        ),
+        empty: (_) => _empty(context),
+        initial: (_) => _initial(context),
       );
 
   Widget _empty(BuildContext context) => Container(

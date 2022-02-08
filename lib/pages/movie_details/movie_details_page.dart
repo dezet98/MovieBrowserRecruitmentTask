@@ -37,16 +37,22 @@ class _MovieView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-      builder: (context, state) => state.maybeWhen(
+      builder: (context, state) => AnimatedSwitcher(
+        duration: const Duration(milliseconds: 200),
+        child: _buildFromState(context, state),
+      ),
+    );
+  }
+
+  Widget _buildFromState(BuildContext context, MovieDetailsState state) =>
+      state.maybeWhen(
         loadSuccess: (movie) => MovieDetails(movie: state.movie),
         loadFailure: (_, error) => ErrorComponent(
           error: error,
           onRetry: () => context.read<MovieDetailsCubit>().load(),
         ),
         orElse: () => const LoadingComponent(),
-      ),
-    );
-  }
+      );
 }
 
 class _MovieTitle extends StatelessWidget {

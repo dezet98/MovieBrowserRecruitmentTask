@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recruitment_task/utils/dimensions.dart';
 import 'package:flutter_recruitment_task/utils/errors.dart';
-import 'package:flutter_recruitment_task/utils/extensions.dart';
 
 class ErrorComponent extends StatelessWidget {
   final AppError error;
@@ -13,14 +12,12 @@ class ErrorComponent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: context.screenHeight * 0.3,
+      padding: const EdgeInsets.symmetric(
         horizontal: Dimensions.PADDING_M,
       ),
-      child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
+      child: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
