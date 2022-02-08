@@ -7,7 +7,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
 import '../mocks/common.mocks.dart';
-import '../mocks/fake_api_service.dart';
+import '../mocks/api_service_helper.dart';
 
 void main() {
   group('MovieDetailsCubit test', () {

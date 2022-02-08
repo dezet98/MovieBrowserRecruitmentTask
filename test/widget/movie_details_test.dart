@@ -2,7 +2,7 @@ import 'package:flutter_recruitment_task/generated/l10n.dart';
 import 'package:flutter_recruitment_task/pages/movie_details/widgets/move_details.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import '../mocks/fake_api_service.dart';
+import '../mocks/api_service_helper.dart';
 import '../mocks/fake_app.dart';
 
 void main() {
