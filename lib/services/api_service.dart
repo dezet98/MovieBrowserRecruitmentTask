@@ -13,9 +13,9 @@ import 'interceptors.dart';
 class ApiService {
   static const baseUrl = Constants.baseUrl;
 
-  static final ApiService _singleton = ApiService._internal();
+  static final ApiService _value = ApiService._internal();
 
-  factory ApiService() => _singleton;
+  factory ApiService() => _value;
 
   ApiService._internal();
 

@@ -21,7 +21,8 @@ class MovieDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BlocProvider<MovieDetailsCubit>(
-        create: (context) => MovieDetailsCubit(ApiService(), movie: args.movie),
+        create: (context) =>
+            MovieDetailsCubit(ApiService(), movie: args.movie)..load(),
         child: Scaffold(
           appBar: AppBar(
             title: _MovieTitle(heroTag: args.textHeroTag),

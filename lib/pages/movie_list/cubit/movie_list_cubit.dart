@@ -12,7 +12,7 @@ class MovieListCubit extends Cubit<MovieListState> {
 
   MovieListCubit(this._apiService) : super(const MovieListState.initial(""));
 
-  Map<int, List<Movie>> movies = {};
+  final Map<int, List<Movie>> movies = {};
 
   Future<void> loadMovies(String query) async {
     movies.clear();

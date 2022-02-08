@@ -1,9 +1,16 @@
+import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_recruitment_task/utils/extensions.dart';
 
-class AppError {}
+class AppError extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
-class NoInternetError implements AppError {}
+class NoInternetError extends Equatable implements AppError {
+  @override
+  List<Object> get props => [];
+}
 
 extension ExceptionExt on AppError {
   String text(BuildContext context) {

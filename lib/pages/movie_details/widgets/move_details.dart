@@ -25,7 +25,7 @@ class MovieDetails extends StatelessWidget {
               movieDetails[index].title,
               style: Theme.of(context).textTheme.headline5,
             ),
-            const SizedBox(height: 8.0),
+            const SizedBox(height: Dimensions.PADDING_S),
             Text(
               movieDetails[index].content,
               style: Theme.of(context).textTheme.subtitle1,
@@ -58,9 +58,11 @@ class MovieDetails extends StatelessWidget {
 class _MovieDetail {
   final String title;
   final String content;
+  final Key? key;
 
   _MovieDetail({
     required this.title,
     required this.content,
+    this.key,
   });
 }

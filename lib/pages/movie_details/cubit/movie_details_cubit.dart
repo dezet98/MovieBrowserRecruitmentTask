@@ -11,9 +11,7 @@ class MovieDetailsCubit extends Cubit<MovieDetailsState> {
   Movie movie;
 
   MovieDetailsCubit(this._apiService, {required this.movie})
-      : super(MovieDetailsState.initial(movie)) {
-    load();
-  }
+      : super(MovieDetailsState.initial(movie));
 
   Future<void> load() async {
     emit(MovieDetailsState.loading(state.movie));

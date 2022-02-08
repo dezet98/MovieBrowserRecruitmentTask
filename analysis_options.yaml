@@ -5,6 +5,7 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "lib/generated/intl/*"
+    - "**/*.mocks.dart"
   errors:
     invalid_annotation_target: ignore
     implementation_imports: ignore
